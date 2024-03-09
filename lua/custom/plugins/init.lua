@@ -25,6 +25,10 @@ return {
     'tpope/vim-fugitive',
   },
   {
+    'nvim-telescope/telescope-file-browser.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
+  },
+  {
     'ThePrimeagen/vim-be-good',
     lazy = false,
   },
