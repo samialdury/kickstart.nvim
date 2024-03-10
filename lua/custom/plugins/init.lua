@@ -29,6 +29,9 @@ return {
     dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
   },
   {
+    'nvim-pack/nvim-spectre',
+  },
+  {
     'ThePrimeagen/vim-be-good',
     lazy = false,
   },
