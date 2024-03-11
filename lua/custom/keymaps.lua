@@ -22,3 +22,10 @@ vim.keymap.set('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual(
 vim.keymap.set('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
   desc = 'Search on current file',
 })
+
+-- Exit on jj and jk in insert mode
+vim.keymap.set('i', 'jj', '<ESC>')
+vim.keymap.set('i', 'jk', '<ESC>')
+
+-- rename the word under the cursor
+vim.keymap.set('n', '<leader>rw', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
