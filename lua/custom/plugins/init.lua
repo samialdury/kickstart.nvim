@@ -4,6 +4,44 @@
 -- See the kickstart.nvim README for more information
 return {
   {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    config = function()
+      require('catppuccin').setup {
+        flavour = 'mocha',
+        integrations = {
+          cmp = true,
+          gitsigns = true,
+          mini = true,
+          mason = true,
+          markdown = true,
+          native_lsp = {
+            enabled = true,
+            virtual_text = {
+              errors = { 'italic' },
+              hints = { 'italic' },
+              warnings = { 'italic' },
+              information = { 'italic' },
+            },
+            underlines = {
+              errors = { 'underline' },
+              hints = { 'underline' },
+              warnings = { 'underline' },
+              information = { 'underline' },
+            },
+            inlay_hints = {
+              background = true,
+            },
+          },
+          telescope = true,
+          treesitter = true,
+          which_key = true,
+        },
+      }
+    end,
+  },
+  {
     'christoomey/vim-tmux-navigator',
     lazy = false,
     cmd = {
