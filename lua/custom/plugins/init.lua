@@ -64,10 +64,20 @@ return {
   },
   {
     'nvim-telescope/telescope-file-browser.nvim',
-    dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+      'nvim-lua/plenary.nvim',
+    },
   },
   {
     'nvim-pack/nvim-spectre',
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    opts = {
+      mode = 'cursor',
+      max_lines = 3,
+    },
   },
   {
     'zbirenbaum/copilot.lua',
