@@ -73,13 +73,6 @@ return {
     'nvim-pack/nvim-spectre',
   },
   {
-    'nvim-treesitter/nvim-treesitter-context',
-    opts = {
-      mode = 'cursor',
-      max_lines = 3,
-    },
-  },
-  {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
     build = ':Copilot auth',
@@ -129,6 +122,102 @@ return {
         copilot_node_command = 'node', -- Node.js version must be > 18.x
         server_opts_overrides = {},
       }
+    end,
+  },
+  {
+    'kdheepak/lazygit.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    cmd = {
+      'LazyGit',
+      'LazyGitConfig',
+      'LazyGitCurrentFile',
+      'LazyGitFilter',
+      'LazyGitFilterCurrentFile',
+    },
+  },
+  {
+    'iamcco/markdown-preview.nvim',
+    ft = 'markdown',
+    cmd = { 'MarkdownPreview' },
+    dependencies = {
+      'zhaozg/vim-diagram',
+      'aklt/plantuml-syntax',
+    },
+    build = function()
+      vim.fn['mkdp#util#install']()
+    end,
+  },
+  {
+    'fatih/vim-go',
+    config = function()
+      -- we disable most of these features because treesitter and nvim-lsp
+      -- take care of it
+      vim.g['go_gopls_enabled'] = 0
+      vim.g['go_code_completion_enabled'] = 0
+      vim.g['go_fmt_autosave'] = 0
+      vim.g['go_imports_autosave'] = 0
+      vim.g['go_mod_fmt_autosave'] = 0
+      vim.g['go_doc_keywordprg_enabled'] = 0
+      vim.g['go_def_mapping_enabled'] = 0
+      vim.g['go_textobj_enabled'] = 0
+      vim.g['go_list_type'] = 'quickfix'
+    end,
+  },
+  {
+    'windwp/nvim-autopairs',
+    -- Optional dependency
+    dependencies = { 'hrsh7th/nvim-cmp' },
+    config = function()
+      require('nvim-autopairs').setup {}
+      -- If you want to automatically add `(` after selecting a function or method
+      local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
+      local cmp = require 'cmp'
+      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+    end,
+  },
+  {
+    'ethanholz/nvim-lastplace',
+    config = function()
+      require('nvim-lastplace').setup {
+        lastplace_ignore_buftype = { 'quickfix', 'nofile', 'help' },
+        lastplace_ignore_filetype = { 'gitcommit', 'gitrebase', 'svn', 'hgcommit' },
+        lastplace_open_folds = true,
+      }
+    end,
+  },
+  -- Alternate between files, such as foo.go and foo_test.go
+  {
+    'rgroli/other.nvim',
+    config = function()
+      require('other-nvim').setup {
+        mappings = {
+          'rails', --builtin mapping
+          {
+            pattern = '(.*).go$',
+            target = '%1_test.go',
+            context = 'test',
+          },
+          {
+            pattern = '(.*)_test.go$',
+            target = '%1.go',
+            context = 'file',
+          },
+        },
+      }
+
+      vim.api.nvim_create_user_command('A', function(opts)
+        require('other-nvim').open(opts.fargs[1])
+      end, { nargs = '*' })
+
+      vim.api.nvim_create_user_command('AV', function(opts)
+        require('other-nvim').openVSplit(opts.fargs[1])
+      end, { nargs = '*' })
+
+      vim.api.nvim_create_user_command('AS', function(opts)
+        require('other-nvim').openSplit(opts.fargs[1])
+      end, { nargs = '*' })
     end,
   },
   {
